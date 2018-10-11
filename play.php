@@ -5,9 +5,9 @@
 <html lang="se">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soloäventyr - Spela</title>
-	<link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
 	<a href="index.php">Hem</a>
 	<a class="active" href="play.php">Spela</a>
 	<a href="edit.php">Redigera</a>
-</nav>	
+</nav>
 <main class="content">
 	<section>
 		<h1>Spela</h1>
@@ -33,9 +33,9 @@
 
 	// PDO
 
-	$dbh = new PDO('mysql:host=localhost;dbname=te16;charset=utf8mb4', $dbuser, $dbpass);
+	$dbh = new PDO('mysql:host=localhost;dbname=soloäventyr;charset=utf8mb4', $dbuser, $dbpass);
 
-	echo "<pre>" . print_r($dbh,1) . "</pre>";
+//	echo "<pre>" . print_r($dbh,1) . "</pre>";
 
 	if (isset($_GET['page'])) {
 		// TODO load requested page from DB using GET
@@ -49,7 +49,18 @@
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		echo "<pre>" . print_r($row,1) . "</pre>";
+	//	echo "<pre>" . print_r($row,1) . "</pre>";
+
+		$stmt = $dbh->prepare("SELECT * FROM storylinks WHERE storyid = :id");
+		$stmt->bindParam(':id', $filteredPage);
+		$stmt->execute();
+
+		$row = $stmt->fetchall(PDO::FETCH_ASSOC);
+	//	echo "<pre>" . print_r($row,1) . "</pre>";
+
+		foreach ($row as $val) {
+			echo "<a href=\"?page=" . $val['target'] . "\">" . $val['text'] . " </a>";
+		}
 
 		echo "<p>Requested page " . $filteredPage . "</p>";
 	} elseif(isset($_SESSION['page'])) {
