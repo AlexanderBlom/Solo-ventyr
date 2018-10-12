@@ -49,6 +49,8 @@
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+		echo "<p>" . $row['text'] . "</p>";
+
 	//	echo "<pre>" . print_r($row,1) . "</pre>";
 
 		$stmt = $dbh->prepare("SELECT * FROM storylinks WHERE storyid = :id");
@@ -59,7 +61,7 @@
 	//	echo "<pre>" . print_r($row,1) . "</pre>";
 
 		foreach ($row as $val) {
-			echo "<a href=\"?page=" . $val['target'] . "\">" . $val['text'] . " </a>";
+			echo "<a href=\"?page=" . $val['target'] . "\">" . $val['text'] . "<br> </a>";
 		}
 
 		echo "<p>Requested page " . $filteredPage . "</p>";
