@@ -14,7 +14,7 @@
 <body>
 <nav id="navbar">
 	<a href="index.php">Hem</a>
-	<a href="play.php">Spela</a>
+	<a href="play.php?page=1">Spela</a>
 </nav>
 <form method="POST" id="loginForm" action="index.php">
 	Username:<input type="text" name="username" id="username" autocomplete="off">
