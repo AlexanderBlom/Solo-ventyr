@@ -7,26 +7,31 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soloäventyr - Spela</title>
-	<link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Niramit" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<nav id="navbar">
-	<a href="index.php">Hem</a>
-	<a class="active" href="play.php?page=1">Spela</a>
+<nav class="navbar navbar-expand-lg bg-dark">
+	<ul class="nav">
+		<li><a class="navbar-brand nav-link" href="index.php">Hem</a></li>
+		<li><a class ="navbar-brand nav-link" href="play.php?page=1">Spela</a></li>
+	</ul>
+	
+	<form method="POST" id="loginForm" class="ml-auto">
+		<input type="text" name="username" id="username" autocomplete="off" placeholder="Username" class="m-1">
+		<button type="submit" name="login" id="login" class="mr-2 btn btn-outline-light">Logga in</button>
+		<input type="password" name="password" id="password" placeholder="Password " class="m-1">
+		<button type="submit" name="register" id="register" class="btn btn-outline-light">Registrera</button>
+	</form>
 </nav>
 <main class="content">
 	<section>
-		<h1>Spela</h1>
-<!--
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit hic aliquid nostrum quibusdam veritatis? Eaque accusantium odit id deserunt, quae minima adipisci nesciunt illum ipsa ea placeat, earum laboriosam corrupti.</p>
-		<footer class="gotopagelinks">
-			<p>
-				<a href="play.php?page=1">Nästa sida</a>
-				<a href="play.php?page=2">Gå till sidan</a>
-			</p>
-		</footer>
--->
+		<div class="container">
+			<div class="header">
+				<h1>Spela</h1>
+			</div>
+		</div>
 <?php
 	include_once 'include/dbinfo.php';
 
@@ -46,7 +51,11 @@
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		echo "<p>" . $row['text'] . "</p>";
+		echo "<div class='container'> 
+				<div class='row justify-content-md-center'>
+						<p>" . $row['text'] . "</p>
+				</div>
+				<div class='row justify-content-md-center'>";
 
 		$stmt = $dbh->prepare("SELECT * FROM storylinks WHERE storyid = :id");
 		$stmt->bindParam(':id', $filteredPage);
@@ -55,7 +64,12 @@
 		$row = $stmt->fetchall(PDO::FETCH_ASSOC);
 
 		foreach ($row as $val) {
-			echo "<a href=\"?page=" . $val['target'] . "\">" . $val['text'] . "<br> </a>";
+			echo "<div class='row px-2'>
+				<div class='col-2'>
+					<button type='button' class='btn btn-outline-dark'><a href='?page='" . $val['target'] . ">" . $val['text'] . "<br> </a></button>
+				</div>
+				</div>";
+
 		}
 
 	} elseif(isset($_SESSION['page'])) {
@@ -67,6 +81,5 @@
 
 ?>
 </main>
-<script src="js/navbar.js"></script>
 </body>
 </html>

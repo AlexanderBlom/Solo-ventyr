@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(!isset($_SESSION["user"])) header('Location: index.php');
+	//if(!isset($_SESSION["user"])) header('Location: index.php');
 ?>
 <!doctype html>
 <html lang="se">
@@ -9,28 +9,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soloäventyr - Redigera</title>
 	<link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<nav id="navbar">
-	<a href="index.php">Hem</a>
-	<a href="play.php?page=1">Spela</a>
+<nav class="navbar navbar-expand-lg bg-dark ">
+	<a class="navbar-brand nav-link" href="index.php">Hem</a>
+	<a class ="navbar-brand nav-link" href="play.php?page=1">Spela</a>
+	
+	<form method="POST" id="loginForm" class="ml-auto">
+		<input type="text" name="username" id="username" autocomplete="off" placeholder="Username" class="m-1">
+		<button type="submit" name="login" id="login" class="mr-2 btn btn-outline-light">Logga in</button>
+		<input type="password" name="password" id="password" placeholder="Password " class="m-1">
+		<button type="submit" name="register" id="register" class="btn btn-outline-light">Registrera</button>
+	</form>
 </nav>
-<form method="POST" id="loginForm" action="index.php">
-	Username:<input type="text" name="username" id="username" autocomplete="off">
-	<input type="submit" name="login" id="login" value="Logga In">
-	<br>Password:<input type="password" name="password" id="password">
-	<input type="submit" name="logOut" value="Logga Ut">
-</form>
+
 <main class="content">
-	<section>
-		<h1>Redigera</h1>
-		<form method="post">
-					<label for="page">Page:</label>
-					<input type="number" name="page" id="page" min="1" max="100">
-					<input type="submit" id="submit" name="submit">
-					<input type="submit" id="add" name="add" value='Lägg till'>
-		</form>
+		<div class="container">
+			<h1>Redigera</h1>
+			<div class="row">
+				<div class="col-2 form-group">
+					<form method="post">
+						<label for="page">Page:</label>
+						<input class='form-control border-dark' type="number" name="page" id="page" min="1" max="100">
+						<input class='form-control' type="submit" id="submit" name="submit">
+						<input class='form-control' type="submit" id="add" name="add" value='Lägg till'>
+					</form>
+				</div>
 <?php
 
 		include 'include/dbinfo.php';
@@ -46,15 +52,23 @@
 
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			echo "<p>" . $row['text'] . "</p>";
+			echo "
+					<div class='col-5 mt-4 mr-2'>
+						<p> Texten på sidan:<br>" . $row['text'] . "</p>
+					</div>
+					</div>";
 
-			echo "<label>Text:
-						<br><textarea id='textEdit' name='textEdit' form='textForm'>" . $row['text'] . "</textarea>
-						<br><form method='post' id='textForm' name='textForm'>
-							<input type='hidden' name='page' id='page' value=" . $filteredNumber . ">
-							<input type='submit' name='textEditSubmit'>
-							<input type='submit' name='delete' value='Ta bort'>
-						</form>";
+			echo "
+					<div class='row'>
+						<div class='col'>
+							<label>Text:
+							<br><textarea id='textEdit' class='form-control border-dark' name='textEdit' form='textForm' cols='150' rows='7'>" . $row['text'] . "</textarea>
+							<br><form method='post' id='textForm' name='textForm'>
+								<input type='hidden' class='form-control' name='page' id='page' value=" . $filteredNumber . ">
+								<input type='submit' class='form-control' name='textEditSubmit'>
+								<input type='submit' class='form-control' name='delete' value='Ta bort'>
+							</form>
+						</div>";
 
 			$stmt = $dbh->prepare("SELECT * FROM storylinks WHERE storyid = :id");
 			$stmt->bindparam(':id', $filteredNumber);
@@ -63,12 +77,17 @@
 			$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			foreach($row as $value){
-				echo "<form method='POST' name='storyLinks'>
-							<br><textarea name='story' class='storydshit'>" . $value['text'] . "</textarea>
-							<br><input type='submit' name='storyLinksSubmit'>
-							<input type='hidden' name='storyId' value=" . $value['id'] . ">
-							</form>";
+				echo "
+						<div class='col'>
+							<form method='POST' name='storyLinks'>
+								<label>Länk
+								<br><textarea name='story' class='form-control border-dark' cols='150' rows='7'>" . $value['text'] . "</textarea>
+								<br><input type='submit' class='form-control' name='storyLinksSubmit'>
+								<input type='hidden' name='storyId' value=" . $value['id'] . ">
+							</form>
+						</div>";
 			}
+			echo "</div>";
 		}
 
 		if(isset($_POST['storyLinksSubmit'])){
@@ -97,7 +116,8 @@
 							<br><textarea id='textAdd' name='textAdd' form='textForm'></textarea>
 							<br><form method='post' id='textForm' name='textForm'>
 								<input type='submit' name='textAddSubmit'>
-							<form>";
+							<form>
+							</div>";
 		}
 		if(isset($_POST['textAddSubmit'])){
 				$update = $_POST['textAdd'];
@@ -107,6 +127,5 @@
 		}
 ?>
 </main>
-<script src="js/navbar.js"></script>
 </body>
 </html>
