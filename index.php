@@ -29,7 +29,7 @@
 	<div class="container">
 		<section>
 			<h1>Soloäventyr - La Traviata</h1>
-			<img alt="LaNjure" src="media\La_Njure.svg" width="200" height="200">
+			<img alt="LaNjure" src="media/La_Njure.svg" width="200" height="200">
 		</section>
 	</div>
 </main>

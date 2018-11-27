@@ -61,7 +61,7 @@
 			echo "
 					<div class='row'>
 						<div class='col'>
-							<label>Text:
+							<label>Text:</label>
 							<br><textarea id='textEdit' class='form-control border-dark' name='textEdit' form='textForm' cols='150' rows='7'>" . $row['text'] . "</textarea>
 							<br><form method='post' id='textForm' name='textForm'>
 								<input type='hidden' class='form-control' name='page' id='page' value=" . $filteredNumber . ">
@@ -80,7 +80,7 @@
 				echo "
 						<div class='col'>
 							<form method='POST' name='storyLinks'>
-								<label>Länk
+								<label>Länk:</label>
 								<br><textarea name='story' class='form-control border-dark' cols='150' rows='7'>" . $value['text'] . "</textarea>
 								<br><input type='submit' class='form-control' name='storyLinksSubmit'>
 								<input type='hidden' name='storyId' value=" . $value['id'] . ">
@@ -112,11 +112,11 @@
 				$stmt->execute();
 		}
 		if(isset($_POST['add'])){
-				echo "<label>Text:
+				echo "<label>Text:</label>
 							<br><textarea id='textAdd' name='textAdd' form='textForm'></textarea>
 							<br><form method='post' id='textForm' name='textForm'>
 								<input type='submit' name='textAddSubmit'>
-							<form>
+								</form>
 							</div>";
 		}
 		if(isset($_POST['textAddSubmit'])){

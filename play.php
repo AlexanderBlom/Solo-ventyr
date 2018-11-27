@@ -26,7 +26,6 @@
 	</form>
 </nav>
 <main class="content">
-	<section>
 		<div class="container">
 			<div class="header">
 				<h1>Spela</h1>
@@ -64,13 +63,17 @@
 		$row = $stmt->fetchall(PDO::FETCH_ASSOC);
 
 		foreach ($row as $val) {
-			echo "<div class='row px-2'>
-				<div class='col-2'>
-					<button type='button' class='btn btn-outline-dark'><a href='?page='" . $val['target'] . ">" . $val['text'] . "<br> </a></button>
-				</div>
-				</div>";
+			echo "
+					<div class='row px-2'>
+						<div class='col-2'>
+							<button type='button' class='btn btn-outline-dark'><a href='?page='" . $val['target'] . ">" . $val['text'] . "<br> </a></button>
+						</div>
+						</div>";
 
 		}
+		echo "
+			</div>
+			</div>";
 
 	} elseif(isset($_SESSION['page'])) {
 		// TODO load page from db
