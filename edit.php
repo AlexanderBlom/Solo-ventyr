@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	//if(!isset($_SESSION["user"])) header('Location: index.php');
+	if(!isset($_SESSION["user"])) header('Location: index.php');
 ?>
 <!doctype html>
 <html lang="se">
@@ -19,10 +19,11 @@
 		<li><a class ="navbar-brand nav-link" href="play.php?page=1">Spela</a></li>
 	</ul>	
 	<form method="POST" id="loginForm" class="ml-auto">
-		<input type="text" name="username" id="username" autocomplete="off" placeholder="Username" class="m-1">
-		<button type="submit" name="login" id="login" class="mr-2 btn btn-outline-light">Logga in</button>
-		<input type="password" name="password" id="password" placeholder="Password " class="m-1">
-		<button type="submit" name="register" id="register" class="btn btn-outline-light">Registrera</button>
+	<?php
+		if(isset($_SESSION["user"])){
+			echo "<button type='submit' name='logOut' id='logOut' class='btn btn-outline-light'>Logga ut</button>";
+			}
+	?>
 	</form>
 </nav>
 
@@ -126,6 +127,10 @@
 				$stmt = $dbh->prepare("INSERT INTO story(text) VALUES (:textAdd)");
 				$stmt->bindparam(':textAdd', $update);
 				$stmt->execute();
+		}
+		if(isset($_POST['logOut'])){
+			session_destroy();
+			header('Location: /webbserverprog/SoloÄventyr/story/index.php');
 		}
 ?>
 </main>

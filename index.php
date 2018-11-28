@@ -23,6 +23,12 @@
 			<button type="submit" name="login" id="login" class="mr-2 btn btn-outline-light">Logga in</button>
 			<input type="password" name="password" id="password" placeholder="Password " class="m-1">
 			<button type="submit" name="register" id="register" class="btn btn-outline-light">Registrera</button>
+		<?php
+			if(isset($_SESSION["user"])){
+				echo "<button type='submit' name='logOut' id='logOut' class='btn btn-outline-light'>Logga ut</button>";
+			}
+			
+		?>
 		</form>
 </nav>
 <main class="content">
@@ -56,6 +62,7 @@
 			$stmt->execute();
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
 			if($username == $row['username'] &&
 			password_verify($password, $row['password'])){
 				$_SESSION["user"] = $username;
@@ -67,6 +74,7 @@
 		}
 		if(isset($_POST['logOut'])){
 			session_destroy();
+			header('Location: /webbserverprog/SoloÄventyr/story/index.php');
 		}
 ?>
 </main>
