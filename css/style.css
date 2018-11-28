@@ -7,7 +7,7 @@ ul.nav li.nav-link a, ul.nav li a:visited {
     color: white;
 }
 
-ul.nav li.nav-link a:hover, ul.nav li a:active {
+ul.nav li.nav-link, ul.nav li a:hover, ul.nav li a:active {
     color: red;
 }
 

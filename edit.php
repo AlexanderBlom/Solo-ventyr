@@ -8,15 +8,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soloäventyr - Redigera</title>
-	<link href="https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Niramit" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-dark ">
-	<a class="navbar-brand nav-link" href="index.php">Hem</a>
-	<a class ="navbar-brand nav-link" href="play.php?page=1">Spela</a>
-	
+	<ul class="nav">
+		<li><a class="navbar-brand nav-link" href="index.php">Hem</a></li>
+		<li><a class ="navbar-brand nav-link" href="play.php?page=1">Spela</a></li>
+	</ul>	
 	<form method="POST" id="loginForm" class="ml-auto">
 		<input type="text" name="username" id="username" autocomplete="off" placeholder="Username" class="m-1">
 		<button type="submit" name="login" id="login" class="mr-2 btn btn-outline-light">Logga in</button>
@@ -87,7 +88,8 @@
 							</form>
 						</div>";
 			}
-			echo "</div>";
+			echo "</div>
+					</div>";
 		}
 
 		if(isset($_POST['storyLinksSubmit'])){

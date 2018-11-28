@@ -15,7 +15,7 @@
 <nav class="navbar navbar-expand-lg bg-dark">
 	<ul class="nav">
 		<li><a class="navbar-brand nav-link" href="index.php">Hem</a></li>
-		<li><a class ="navbar-brand nav-link" href="play.php?page=1">Spela</a></li>
+		<li><a class="navbar-brand nav-link" href="play.php?page=1">Spela</a></li>
 	</ul>
 	
 		<form method="POST" id="loginForm" class="ml-auto">
@@ -32,7 +32,6 @@
 			<img alt="LaNjure" src="media/La_Njure.svg" width="200" height="200">
 		</section>
 	</div>
-</main>
 <?php
 	include 'include/dbinfo.php';
 

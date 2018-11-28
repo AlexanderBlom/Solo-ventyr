@@ -66,14 +66,14 @@
 			echo "
 					<div class='row px-2'>
 						<div class='col-2'>
-							<button type='button' class='btn btn-outline-dark'><a href='?page='" . $val['target'] . ">" . $val['text'] . "<br> </a></button>
+							<a class='btn btn-outline-dark' href='?page=" . $val['target'] . "'>" . $val['text'] . "<br> </a>
 						</div>
 						</div>";
 
 		}
 		echo "
-			</div>
-			</div>";
+				</div>
+				</div>";
 
 	} elseif(isset($_SESSION['page'])) {
 		// TODO load page from db
